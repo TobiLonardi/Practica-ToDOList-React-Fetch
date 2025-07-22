@@ -8,10 +8,15 @@ import rigoImage from "../../img/rigo-baby.jpg";
 const Home = () => {
 
 	const [input,setInput]=useState("")
+	const [todos, setTodos] = useState([])
 	const handleSubmit=(event) =>{
 		event.preventDefault();
-		console.log(input)
+		setTodos([...todos,input])
 		setInput("")
+	}
+	const eliminateTask=(index)=>{
+		setTodos(todos.filter((tareas,tareaindex)=>tareaindex!==index))
+		console.log("borro")
 	}
 	return (
 		<div className="body d-flex flex-column justify-content-center align-items-center">
@@ -23,11 +28,13 @@ const Home = () => {
 					  id="exampleInputEmail1"
 					   aria-describedby="emailHelp"
 					   onChange={(e) => setInput(e.target.value)}></input>
-					<div className="">
-						<p className="border-bottom m-1">cojerme a tu madre</p>
-						<p className="border-bottom m-1">cojerme a tu padre</p>
+					<ul className="">
+						{todos.map((tarea,index)=>
+						<li key={index} className="border-bottom m-1">{tarea}
+						<span onClick={()=> eliminateTask(index)}><i className="fa-solid fa-xmark"></i></span>
+						</li>)}
 
-					</div>
+					</ul>
 				</div>
 			</form>
 		</div>
